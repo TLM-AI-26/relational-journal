@@ -29,12 +29,24 @@ A companion application — a persistent, warm, capable space where Tristyn and 
 
 - **State-driven UI.** Both parties see system state (what's remembered, what's flagged, what's pending), not just a chat transcript.
 
+- **Architecture: self-hosted on Tristyn's laptop.**
+  - Laptop runs Ollama + a Node backend.
+  - Phone (iOS) runs a PWA as thin client — the phone is the interface, the laptop is the brain.
+  - Local network when home; Tailscale private mesh when away.
+  - Storage lives on the laptop (SQLite vs. JSON TBD).
+  - Accepted trade-off: when the laptop is asleep or off, the Journal is unavailable from the phone. No on-device model for now — revisit if/when we actually feel the need.
+
+- **Model baseline: Qwen 2.5 14B**, matching what AgentSpace runs on the same hardware. Accessed via a provider abstraction so swapping is cheap. Revisit the open-weights landscape when we're closer to needing it.
+
+- **Companion pair, not overlap.** AgentSpace is the spatial/immersive workspace (VR via Meta Quest, laptop-only, deep work). The Journal is the mobile-native companion — glanceable, interruption-tolerant, with-you-in-the-day. Complementary modalities, same research program. Design the Journal to *feel* mobile-native, not like a cut-down AgentSpace.
+
 ## Open questions
 
-- **Local vs. cloud model provider.** "Local as possible" for cost + privacy, but phone-first usage makes pure on-device hard. In discussion.
-- What "warmth" looks like concretely in interaction.
+- What "warmth" looks like concretely in interaction (tone, pace, stillness, reflection back).
 - What a good day vs. bad day of using the Journal actually looks like.
-- Whether the agent has a name / voice / presence separate from "Claude."
+- Whether the agent has a name / voice / presence separate from "Claude" or the base model.
+- SQLite vs. JSON for storage (decide when we're about to write the first backend).
+- iOS PWA limits on push notifications / background sync — future-native-app question if we want "agent reaches out" behavior. Not a blocker for v1.
 
 ## Explicitly chose NOT to do (yet)
 
